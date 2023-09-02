@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.0-alpha15"
+agp = "8.2.0-beta01"
 kotlin = "1.9.10"
 core-ktx = "1.10.1"
 junit = "4.13.2"
@@ -29,6 +29,7 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+ui-viewbinding = { group = "androidx.compose.ui", name = "ui-viewbinding" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -14,7 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.ui.AspectRatioFrameLayout
@@ -22,6 +22,7 @@ import androidx.media3.ui.PlayerView
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.github.whitescent.exoplayer_navigation_bug.databinding.PlayerLayoutBinding
 import com.github.whitescent.exoplayer_navigation_bug.player.ExoPlayerLifecycleEvents
 import com.github.whitescent.exoplayer_navigation_bug.player.rememberExoPlayerInstance
 import com.github.whitescent.exoplayer_navigation_bug.ui.theme.Exoplayer_navigation_bugTheme
@@ -49,19 +50,19 @@ class MainActivity : ComponentActivity() {
                         val exoPlayer = rememberExoPlayerInstance()
                         ExoPlayerLifecycleEvents(exoPlayer)
                         Box(Modifier.fillMaxSize(), Alignment.Center) {
-                            AndroidView(
-                                factory = { context ->
-                                    PlayerView(context).apply {
-                                        player = exoPlayer
-                                        setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
-                                        resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-                                        useController = false
-                                    }
+                            AndroidViewBinding(
+                                PlayerLayoutBinding::inflate,
+                                update = {
+                                    root.player = exoPlayer
+                                    root.setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
+                                    root.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+                                    root.useController = false
                                 },
                                 onReset = {
-                                    it.player = exoPlayer
+                                    root.player = exoPlayer
                                 },
                             )
+
                             LaunchedEffect(Unit) {
                                 exoPlayer.run {
                                     setMediaItem(
